@@ -20,7 +20,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginEnd="10dp"
-            android:layout_weight="0.8"
+            android:layout_weight="1"
             android:orientation="vertical">
 
             <TextView
@@ -45,13 +45,7 @@
 
         </LinearLayout>
 
-        <Switch
-            android:id="@+id/switchItem"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_alignParentEnd="true"
-            android:layout_gravity="center"
-            android:layout_weight="0.2" />
+
 
     </LinearLayout>
 </LinearLayout>

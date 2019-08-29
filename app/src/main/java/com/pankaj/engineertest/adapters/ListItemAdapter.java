@@ -13,7 +13,6 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.pankaj.engineertest.MainActivity;
 import com.pankaj.engineertest.R;
-import com.pankaj.engineertest.interfaces.OnItemtClickedInterface;
 import com.pankaj.engineertest.model.DataModel;
 
 import java.text.SimpleDateFormat;
@@ -24,7 +23,6 @@ public class ListItemAdapter extends RecyclerView.Adapter<ListItemAdapter.ViewHo
 
     private Context context;
     private List<DataModel.HitList> hitList;
-    public OnItemtClickedInterface onItemtClickedInterface;
     OnLoadMoreListener loadMoreListener;
     boolean isLoading = false;
     private boolean enableDisableSwitch;
@@ -54,26 +52,6 @@ public class ListItemAdapter extends RecyclerView.Adapter<ListItemAdapter.ViewHo
         holder.tv_head.setText(list.getTitle());
         holder.tv_createdOn.setText(changeDateFormat(list.getCreated_at()));
 
-        holder.switchItem.setChecked(false);
-
-        holder.ll_main.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                onItemtClickedInterface.onItemClicked(position);
-            }
-        });
-
-        holder.ll_main.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                switchToggle(holder, position);
-            }
-        });
-
-        /*if (holder.switchItem.isActivated()) {
-            switchToggle(holder, position);
-        }*/
-
     }
 
     @Override
@@ -85,14 +63,12 @@ public class ListItemAdapter extends RecyclerView.Adapter<ListItemAdapter.ViewHo
 
         LinearLayout ll_main;
         TextView tv_head, tv_createdOn;
-        Switch switchItem;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
             ll_main = itemView.findViewById(R.id.ll_main);
             tv_head = itemView.findViewById(R.id.tv_head);
             tv_createdOn = itemView.findViewById(R.id.tv_created);
-            switchItem = itemView.findViewById(R.id.switchItem);
         }
     }
 
@@ -102,20 +78,6 @@ public class ListItemAdapter extends RecyclerView.Adapter<ListItemAdapter.ViewHo
 
     public void setLoadMoreListener(OnLoadMoreListener loadMoreListener) {
         this.loadMoreListener = loadMoreListener;
-    }
-
-    private void switchToggle(ViewHolder holder, int position) {
-        if (enableDisableSwitch) {
-            holder.switchItem.setChecked(true);
-            hitList.get(position).setCount(true);
-            activity.checkCount(true);
-            enableDisableSwitch = false;
-        } else {
-            holder.switchItem.setChecked(false);
-            hitList.get(position).setCount(false);
-            activity.checkCount(true);
-            enableDisableSwitch = true;
-        }
     }
 
     private String changeDateFormat(String date) {
@@ -130,8 +92,6 @@ public class ListItemAdapter extends RecyclerView.Adapter<ListItemAdapter.ViewHo
             e.printStackTrace();
         }
 
-        return changedDate;
+        return "Created at : " + changedDate;
     }
-
-
 }
